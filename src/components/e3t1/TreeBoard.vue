@@ -18,7 +18,6 @@ import { ref } from 'vue'
 import TreeBoardCell from './TreeBoardCell.vue'
 import { BoardMode } from './board'
 import { Board, GroupSize } from './board'
-import { b } from 'vitest/dist/suite-KPWE530F.js'
 
 interface BoardProps {
   boardSize: number
@@ -42,6 +41,7 @@ defineExpose({
 })
 
 function Reset() {
+  board.value.Unlock()
   board.value.Clear()
   board.value.ClearPreview()
 }
@@ -60,7 +60,7 @@ function getBoardCells() {
 function onMouseOverCell(i: number, j: number) {
   if (props.mode != BoardMode.Icon) {
     if (!board.value.locked) {
-      console.log(`Mouse over ${i}, ${j}`)
+      // console.log(`Mouse over ${i}, ${j}`)
       board.value.ClearPreview()
       board.value.Preview(i, j)
     }
@@ -79,7 +79,7 @@ function onMouseUpCell(i: number, j: number) {
 function onMouseLeaveBoard() {
   if (props.mode != BoardMode.Icon) {
     if (!board.value.locked) {
-      console.log('Mouse leave board')
+      // console.log('Mouse leave board')
       board.value.ClearPreview()
     }
   }

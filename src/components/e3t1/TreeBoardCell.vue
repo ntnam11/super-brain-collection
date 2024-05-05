@@ -78,18 +78,6 @@ svg {
   padding: 10px;
   max-width: 50px;
   max-height: 50px;
-
-  &#svg-circle {
-    fill: #bf0303;
-  }
-
-  &#svg-triangle {
-    fill: #0040ff;
-  }
-
-  &#svg-tree {
-    fill: #018001;
-  }
 }
 .icon-tree-multiple {
   display: grid;

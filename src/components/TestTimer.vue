@@ -25,12 +25,15 @@ const props = withDefaults(defineProps<TimerProps>(), {
   offsetTime: () => 0
 })
 
-const emit = defineEmits(['done'])
+const emit = defineEmits<{
+  done: [time: string]
+}>()
 
 defineExpose({
   StartTimer,
   StopTimer,
-  ResetTimer
+  ResetTimer,
+  time: () => timeValue.value
 })
 
 let timeValue = ref('00:00:00.000')
@@ -40,7 +43,7 @@ let timer: string | number | NodeJS.Timeout | undefined
 
 function clockRunning() {
   const currentTime = new Date()
-  const timeElapsed = new Date(currentTime.getTime() - timeBegan + props.offsetTime)
+  const timeElapsed = new Date(currentTime.getTime() - timeBegan + props.offsetTime * 1000)
   timeValue.value = strfTime(timeElapsed)
 }
 
@@ -51,7 +54,7 @@ function stopwatchRunning() {
 
   if (timeLeft.getTime() <= 0) {
     clearInterval(timer)
-    emit('done')
+    emit('done', timeValue.value)
   }
 }
 

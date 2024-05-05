@@ -23,7 +23,7 @@ for file in os.listdir(icon_folder):
     svg_content = remove_tag(r'(<title.*</title>)', svg_content)
     svg_content = remove_tag(r'(<desc.*</desc>)', svg_content)
     svg_content = remove_tag(r'(<style.*</style>)', svg_content)
-    svg_content = remove_tag(f'(fill=".*?")', svg_content)
+    # svg_content = remove_tag(f'(fill=".*?")', svg_content)
 
     file_content = f'<template>{svg_content}</template>'
 

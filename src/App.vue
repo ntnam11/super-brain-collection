@@ -36,6 +36,7 @@ nav a:first-of-type {
 
   .body-container {
     padding: 2rem;
+    display: flex;
   }
 }
 </style>
