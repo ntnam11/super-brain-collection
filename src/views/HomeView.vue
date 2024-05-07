@@ -10,7 +10,7 @@
     </div>
   </div>
 </template>
-<script scoped lang="ts">
+<script setup lang="ts">
 import { RouterLink } from 'vue-router'
 </script>
 <style scoped lang="scss">

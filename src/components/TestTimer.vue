@@ -39,7 +39,7 @@ defineExpose({
 let timeValue = ref('00:00:00.000')
 let timeBegan = new Date().getTime()
 let timeEnded = new Date().getTime()
-let timer: string | number | NodeJS.Timeout | undefined
+let timer: ReturnType<typeof setTimeout>
 
 function clockRunning() {
   const currentTime = new Date()
