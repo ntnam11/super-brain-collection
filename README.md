@@ -1,20 +1,14 @@
 # super-brain-collection
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a collection of Super Brain (Chinese TV Show 最强大脑) collection.
 
-## Recommended IDE Setup
+Challenges:
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+### Season 11
 
-## Type Support for `.vue` Imports in TS
+- [Tree Planting](https://ntnam11.github.io/super-brain-collection/s11e3t1)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+### Project Setup
 
 ```sh
 npm install
@@ -42,20 +36,4 @@ npm run test:unit
 
 ```sh
 npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```

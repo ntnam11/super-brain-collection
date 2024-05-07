@@ -1,73 +1,82 @@
 <template>
   <div class="container">
-    <div class="left-panel">
-      <div class="board-grid main-board">
-        <TreeBoard :mode="BoardMode.Icon" :board-size="boardSize" :board="mainBoard"></TreeBoard>
-        <div class="controls-board">
-          <div class="rules">
-            <div class="inline-svg">
-              <IconCircle></IconCircle>
-              <span> = 0 or 2 </span>
-              <IconTree></IconTree>
-            </div>
-            <div class="inline-svg">
-              <IconTriangle></IconTriangle>
-              <span> = 1 or 3 </span>
-              <IconTree></IconTree>
-            </div>
-            <div class="inline-svg">
-              <div class="icon-tree-multiple">
-                <template v-for="i in 4" v-bind:key="i">
-                  <IconTree></IconTree>
-                </template>
+    <div class="content">
+      <p>
+        Plant trees in these fields so that the field on the left results from the combination of
+        them.
+      </p>
+    </div>
+    <div class="panels">
+      <div class="left-panel">
+        <div class="board-grid main-board">
+          <TreeBoard :mode="BoardMode.Icon" :board-size="boardSize" :board="mainBoard"></TreeBoard>
+          <div class="controls-board">
+            <div class="rules">
+              <div class="inline-svg">
+                <IconCircle></IconCircle>
+                <span> = 0 or 2 </span>
+                <IconTree></IconTree>
               </div>
-              <span> = 4 </span>
-              <IconTree></IconTree>
+              <div class="inline-svg">
+                <IconTriangle></IconTriangle>
+                <span> = 1 or 3 </span>
+                <IconTree></IconTree>
+              </div>
+              <div class="inline-svg">
+                <div class="icon-tree-multiple">
+                  <template v-for="i in 4" v-bind:key="i">
+                    <IconTree></IconTree>
+                  </template>
+                </div>
+                <span> = 4 </span>
+                <IconTree></IconTree>
+              </div>
             </div>
-          </div>
-          <div class="control-buttons">
-            <button @click="NewBoard()">New</button>
-          </div>
-          <div class="leaderboard">
-            <span>Records</span>
-            <ol>
-              <li v-for="(record, i) in records" v-bind:key="i">{{ record.value }}</li>
-            </ol>
+            <div class="control-buttons">
+              <button @click="NewBoard()">New</button>
+              <!-- <button @click="HowToPlay()">How to Play</button> -->
+            </div>
+            <div class="leaderboard">
+              <span>Records</span>
+              <ol>
+                <li v-for="(record, i) in records" v-bind:key="i">{{ record.value }}</li>
+              </ol>
+            </div>
           </div>
         </div>
+        <div class="debug-board hidden">
+          <TreeBoard
+            :mode="BoardMode.Icon"
+            :board-size="boardSize"
+            :board="debugBoard"
+            :locked="true"
+          ></TreeBoard>
+        </div>
       </div>
-      <div class="debug-board hidden">
-        <TreeBoard
-          :mode="BoardMode.Icon"
-          :board-size="boardSize"
-          :board="debugBoard"
-          :locked="true"
-        ></TreeBoard>
-      </div>
-    </div>
-    <div class="right-panel">
-      <div class="board-grid sub-boards">
-        <TreeBoard
-          v-for="(board, i) in boards"
-          v-bind:key="i"
-          :mode="BoardMode.Empty"
-          :boardSize="boardSize"
-          :groupSize="board.groupSize"
-          ref="inputBoards"
-          @updated="(board) => UpdateBoard(board, i)"
-        ></TreeBoard>
-        <div class="controls-board">
-          <div class="result">
-            <div class="result-text">
-              <span>{{ result }}</span>
+      <div class="right-panel">
+        <div class="board-grid sub-boards">
+          <TreeBoard
+            v-for="(board, i) in boards"
+            v-bind:key="i"
+            :mode="BoardMode.Empty"
+            :boardSize="boardSize"
+            :groupSize="board.groupSize"
+            ref="inputBoards"
+            @updated="(board) => UpdateBoard(board, i)"
+          ></TreeBoard>
+          <div class="controls-board">
+            <div class="result">
+              <div class="result-text">
+                <span>{{ result }}</span>
+              </div>
             </div>
-          </div>
-          <div class="timer">
-            <TestTimer ref="timer" :offset-time="penaltyTime"></TestTimer>
-          </div>
-          <div class="control-buttons">
-            <button @click="Submit()">Submit</button>
-            <button @click="ClearAll()">Clear All</button>
+            <div class="timer">
+              <TestTimer ref="timer" :offset-time="penaltyTime"></TestTimer>
+            </div>
+            <div class="control-buttons">
+              <button @click="Submit()">Submit</button>
+              <button @click="ClearAll()">Clear All</button>
+            </div>
           </div>
         </div>
       </div>
@@ -75,8 +84,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import TreeBoard from '@/components/e3t1/TreeBoard.vue'
-import { Board, BoardMode, GroupSize } from '@/components/e3t1/board'
+import TreeBoard from '@/components/s11e3t1/TreeBoard.vue'
+import { Board, BoardMode, GroupSize } from '@/components/s11e3t1/board'
 import { onMounted, ref, type Ref } from 'vue'
 import TestTimer from '@/components/TestTimer.vue'
 import IconCircle from '@/components/icons/IconCircle.vue'
@@ -146,7 +155,7 @@ function compare(a: RecordData, b: RecordData) {
   }
   return 0
 }
-const savedRecords = localStorage.getItem('e3t1-records')
+const savedRecords = localStorage.getItem('s11e3t1-records')
 if (savedRecords) {
   records.value = JSON.parse(savedRecords)
   records.value.sort(compare)
@@ -186,6 +195,8 @@ function NewBoard() {
   result.value = 'Test in progress...'
 }
 
+function HowToPlay() {}
+
 function Submit() {
   debugBoard.value = Board.Combine(boards.value)
   // console.log('Debug board')
@@ -199,7 +210,7 @@ function Submit() {
     } as RecordData
     records.value.push(record)
     records.value.sort(compare).slice(0, 5)
-    localStorage.setItem('e3t1-records', JSON.stringify(records.value))
+    localStorage.setItem('s11e3t1-records', JSON.stringify(records.value))
   } else {
     wrongCount++
     penaltyTime.value += 15
@@ -228,10 +239,18 @@ onMounted(() => {
 </script>
 <style scoped lang="scss">
 .container {
+  width: 100%;
+
+  .content {
+    width: 1320px;
+    margin: auto;
+  }
+}
+.panels {
   display: flex;
   width: 100%;
   justify-content: space-around;
-  margin: 2rem;
+  margin: 1rem auto;
 
   .board-grid {
     display: grid;
@@ -326,6 +345,26 @@ onMounted(() => {
 
     .result-text {
       margin: auto;
+    }
+  }
+}
+@media (max-width: 1366px) {
+  .container {
+    .content {
+      width: initial;
+    }
+  }
+}
+@media (max-width: 992px) {
+  .panels {
+    flex-direction: column;
+
+    .left-panel {
+      margin-bottom: 1rem;
+    }
+
+    .sub-boards {
+      grid-template-columns: 1fr;
     }
   }
 }

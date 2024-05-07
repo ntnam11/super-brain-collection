@@ -91,4 +91,20 @@ svg {
     max-height: 20px;
   }
 }
+
+@media (max-width: 1366px) {
+  svg {
+    padding: 5px;
+    max-width: 33px;
+    max-height: 33px;
+  }
+}
+
+@media (max-width: 992px) {
+  svg {
+    padding: 10px;
+    max-width: 50px;
+    max-height: 50px;
+  }
+}
 </style>

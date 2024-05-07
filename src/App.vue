@@ -1,21 +1,30 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
   <div class="app-container">
     <div class="nav-container">
       <RouterLink to="/">Home</RouterLink>
     </div>
+    <h1 id="page-title"></h1>
     <div class="body-container">
       <RouterView />
     </div>
   </div>
 </template>
+<script scoped lang="ts">
+import { RouterLink, RouterView } from 'vue-router'
+import router from './router'
 
+router.beforeEach((to, from, next) => {
+  let title = document.getElementById('page-title')
+  if (title) {
+    title.innerHTML = to.meta.title as string
+  }
+  next()
+})
+</script>
 <style scoped lang="scss">
-nav a:first-of-type {
-  border: 0;
+#page-title {
+  max-width: 1320px;
+  margin: 1rem auto;
 }
 
 .app-container {
@@ -27,7 +36,6 @@ nav a:first-of-type {
     display: flex;
     max-width: 1320px;
     margin: auto;
-    padding: 0 1rem;
 
     a {
       padding: 1rem;
@@ -35,8 +43,21 @@ nav a:first-of-type {
   }
 
   .body-container {
-    padding: 2rem;
+    padding: 1rem 2rem;
     display: flex;
+  }
+}
+
+@media (max-width: 1366px) {
+  #page-title {
+    width: fit-content;
+    margin: 1rem auto;
+  }
+
+  .app-container {
+    .body-container {
+      padding: 0.5rem;
+    }
   }
 }
 </style>
